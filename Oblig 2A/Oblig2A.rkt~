@@ -1,0 +1,68 @@
+(load "huffman.scm")
+
+;; 1a
+(define (p-cons x y)
+  (lambda (proc) (proc x y)))
+
+(define (p-car proc)
+  (proc (lambda (x y) x)))
+
+(define (p-cdr proc)
+  (proc (lambda (x y) y)))
+  
+ 
+;; 1b
+(define foo 30)
+((lambda (x y)
+   (+ foo x y))
+ foo
+ 20)
+ 
+ ;;Evaluerer til 80
+((lambda (foo) 
+   ((lambda (x y) (+ foo x y)) foo 20))
+   10)
+
+;;Evaluerer til 40
+((lambda (x y)
+   (+ foo x y))
+ foo
+ 20)
+ 
+;; Vi definerer foo lokalt til en annen verdien en den globale verdien av foo i det andre let-uttrykket@
+
+;; 1c
+ (define a1 (list 1 2 3 4))
+ (define a2 (list + - * /))
+ (define a3 (list 5 6 7 8))
+ 
+ ((lambda (x y z) (y x z)) 5 * 5)
+ 
+ ;; 2A
+ (define (member? x items)
+  (if (null? items)
+      #f
+      (if(eq? x (car items))
+            #t
+        (member? x (cdr items)))))
+ 
+ (member? 'lake '(lake river ocean))
+ 
+ ;;2B
+ 
+ ;;2D
+ (decode sample-code sample-tree)
+ ;; resultatet er (ninjas fight ninjas by night)
+
+ ;;2E
+ ;;Encode
+(define (encode list tree)
+  (define (encode-1 list current-branch)
+    (if (null? list)
+        '()
+        (
+         
+         )))
+         (encode-1 list tree))
+ 
+ 

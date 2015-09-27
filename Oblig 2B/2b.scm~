@@ -1,0 +1,68 @@
+;; Oppgave 1A
+(define counter 42)
+
+(define (make-counter)
+  (let ((counter 0))
+  (lambda () 
+    (set! counter (+ counter 1))
+    counter)))
+
+(define count1 (make-counter))
+(define count2 (make-counter))
+
+(count1)
+(count1)
+
+(count2)
+
+(define counter 24)
+
+(count1)
+
+;;2A
+(define (make-stack list)
+  (let ((stack list))
+  (define (push-iter! elem)
+    (if (null? elem)
+        'complete-push!
+        (begin (set! stack (cons (car elem) stack))
+               (push-iter! (cdr elem)))))
+    (lambda (message . elements)
+      (cond
+       ((eq? 'pop! message)
+        (if (null? stack)
+            (set! stack '())
+            (set! stack (cdr stack))))
+       ((eq? 'stack message)
+        stack)
+       ((eq? 'push! message)
+        (push-iter! elements))))))
+
+
+'-------------2A-------------- 
+(define s1 (make-stack (list 'foo 'bar)))
+(define s2 (make-stack '()))
+(s1 'pop!)
+(s1 'stack)
+(s2 'pop!)
+(s2 'push! 1 2 3 4)
+(s2 'stack)
+(s1 'push! 'bah)
+(s1 'push! 'zap 'zip 'baz)
+(s1 'stack)
+
+'-------------2B-------------- 
+;;2B
+(define (pop! stack)
+  (stack 'pop!))
+
+(define (stack stck)
+ (stck 'stack))
+
+(define (push! stck . rest)
+ (stck 'push! rest))
+
+(pop! s1)
+(stack s1)
+(push! s1 'foo 'faa)
+(stack s1)
